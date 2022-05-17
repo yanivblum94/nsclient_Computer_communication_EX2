@@ -1,7 +1,3 @@
-#include "conio.h"
-#include "stdio.h"
-#include "windows.h"
-#include <stdbool.h>
 #include "utils.h"
 
 #define MAX_LEN_DOMAIN_NAME 2000//can be configured easily
@@ -11,7 +7,7 @@
 int GetDomainFromUser(char* input) {
     printf("Enter domain name\n");
     if (scanf("%s", input) == SUCCESS_CODE) {
-        printf("ERROR: Getting input from user failed\n");
+        perror("ERROR: Getting input from user failed\n");
         return FAIL_CODE;
     }
     return SUCCESS_CODE;
