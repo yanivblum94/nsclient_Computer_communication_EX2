@@ -35,7 +35,6 @@ typedef struct QUESTION {
     unsigned short q_class;
 } QUESTION;
 
-// Not sure what is this pragna notation 
 #pragma pack(push, 1)
 struct R_DATA {
     unsigned short type;

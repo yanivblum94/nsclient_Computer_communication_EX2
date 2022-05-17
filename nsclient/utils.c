@@ -214,7 +214,7 @@ void dnsQuery(unsigned char* domainName, char* ip_input) {
 		return;
 	}
 	if (recvfrom(sock, (char*)buf, 65536, 0, (struct sockaddr*)&dest, &temp) == SOCKET_ERROR) {
-		perror("ERROR in receving dns answer");
+		perror("ERROR in receving dns answer - possibly timeout");
 	}
 	else {
 		ParseDnsReply(buf, domainName, ques_name);
