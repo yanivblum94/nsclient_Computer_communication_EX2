@@ -13,6 +13,9 @@
 
 // utils functions declarations
 
+
+
+
 // DNS header structure
 typedef struct DNS_HEADER {
     unsigned short id;
