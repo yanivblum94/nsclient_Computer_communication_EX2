@@ -181,7 +181,8 @@ void dnsQuery(unsigned char* domainName, char* ip_input) {
 	DNS_HEADER* dns_hdr = NULL;
 	QUESTION* ques = NULL;
 	unsigned char buf[65536], * ques_name;
-	int temp;
+	int temp, iVal = 2000;
+	unsigned int  sz = sizeof(iVal);
 
 	sock = InitSocket();
 
@@ -204,12 +205,20 @@ void dnsQuery(unsigned char* domainName, char* ip_input) {
 	if (sendto(sock, (char*)buf, sizeof(struct DNS_HEADER) + (strlen((const char*)ques_name) + 1) + sizeof(struct QUESTION), 0, (struct sockaddr*)&dest, temp) == SOCKET_ERROR)
 	{
 		perror("ERROR in sending dns query");
+		return;
 	}
-
+	//set receive timeout to 2000ms = 2 secs as required
+	if (setsockopt(sock, SOL_SOCKET, SO_RCVTIMEO, (char*)&iVal, sz) == SOCKET_ERROR)
+	{
+		perror("setsockopt() failed");
+		return;
+	}
 	if (recvfrom(sock, (char*)buf, 65536, 0, (struct sockaddr*)&dest, &temp) == SOCKET_ERROR) {
 		perror("ERROR in receving dns answer");
 	}
-	ParseDnsReply(buf, domainName, ques_name);
+	else {
+		ParseDnsReply(buf, domainName, ques_name);
+	}
 	dns_hdr = (struct DNS_HEADER*)buf;
 
 	return;
