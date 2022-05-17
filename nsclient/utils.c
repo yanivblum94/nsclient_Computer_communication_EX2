@@ -91,11 +91,6 @@ void ConvertDomainToDnsFormat(unsigned char* domainName, unsigned char* ques_nam
 	*ques_name++='\0';
 }
 
-void SetQuestionInfo(QUESTION* ques, char* buf, char *name ) {
-	ques = (struct QUESTION*)&buf[sizeof(struct DNS_HEADER) + (strlen((const char*)name) + 1)];// fill it
-	ques->q_type = htons(1);// ipv4 address
-	ques->q_class = htons(1);//its internet
-}
 
 unsigned char* ReadName(unsigned char* reader, unsigned char* buffer, int* count)
 {
@@ -200,7 +195,7 @@ void dnsQuery(unsigned char* domainName, char* ip_input) {
 
 	ques_name = (unsigned char*)&buf[sizeof(struct DNS_HEADER)];
 	ConvertDomainToDnsFormat(domainName, ques_name);
-	//SetQuestionInfo(ques, buf, ques_name);
+	//set question info for the buffer request
 	ques = (struct QUESTION*)&buf[sizeof(struct DNS_HEADER) + (strlen((const char*)ques_name) + 1)];// fill it
 	ques->q_type = htons(1);// ipv4 address
 	ques->q_class = htons(1);//its internet
