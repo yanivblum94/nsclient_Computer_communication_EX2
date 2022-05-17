@@ -2,6 +2,7 @@
 #include "stdio.h"
 #include "windows.h"
 #include <stdbool.h>
+#include "utils.h"
 
 #define MAX_LEN_DOMAIN_NAME 2000//can be configured easily
 #define FAIL_CODE 1

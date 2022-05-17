@@ -11,6 +11,8 @@
 #define T_PTR 12  /* domain name pointer */
 #define T_MX 15   /* mail routing information */
 
+// utils functions declarations
+
 // DNS header structure
 typedef struct DNS_HEADER {
     unsigned short id;
